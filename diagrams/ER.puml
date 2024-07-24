@@ -1,5 +1,7 @@
 @startchen
 
+left to right direction
+
 <style>
 .grey {
 BackGroundColor Grey
@@ -15,15 +17,26 @@ FontColor White
 
 entity product {
 	id : Long <<key>>
-	name : String
-	description : String
+	name : varchar
+	description : varchar
 }
 
 entity customer {
 	id : Long <<key>>
-	name : String
-	username : String
-	password : String
+	name : varchar
+	credentials_id : long <<FK>>
+}
+
+entity email {
+	id : Long <<key>>
+	email : varchar
+	customer_id : Long <<FK>>
+}
+
+entity credentials {
+	id : Long <<key>>
+	username : varchar
+	password : varchar
 }
 
 entity cart {
@@ -39,7 +52,7 @@ entity "products_cart" as pc {
 
 entity warehouse {
   id : Long <<key>>
-  location : String
+  location : varchar
 }
 
 entity inventory {
@@ -64,6 +77,20 @@ entity inventory {
 =================RELATIONSHIPS=================
 ///////////////////////////////////////////////
 '/
+
+
+relationship "has" as EMAIL_CUSTOMER <<grey>>{
+}
+
+email -N- EMAIL_CUSTOMER
+customer -1- EMAIL_CUSTOMER
+
+relationship "has" as CUSTOMER_CREDENTIALS <<grey>> {
+}
+
+customer -1- CUSTOMER_CREDENTIALS
+credentials -1- CUSTOMER_CREDENTIALS
+
 
 relationship "has" as CUSTOMER_CART <<grey>> {
 }
