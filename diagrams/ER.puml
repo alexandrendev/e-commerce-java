@@ -1,0 +1,98 @@
+@startchen
+
+<style>
+.grey {
+BackGroundColor Grey
+FontColor White
+}
+</style>
+
+/'
+//////////////////////////////////////////
+=================ENTITIES=================
+//////////////////////////////////////////
+'/
+
+entity product {
+	id : Long <<key>>
+	name : String
+	description : String
+}
+
+entity customer {
+	id : Long <<key>>
+	name : String
+	username : String
+	password : String
+}
+
+entity cart {
+	id : Long <<key>>
+	customer_id : Long <<key>>	
+}
+
+entity "products_cart" as pc {
+	id : Long <<key>>
+	product_id : Long <<key>>
+	cart_id : Long <<key>>
+}
+
+entity warehouse {
+  id : Long <<key>>
+  location : String
+}
+
+entity inventory {
+  id : Long <<key>>
+  product_id : Long <<key>>
+  warehouse_id : Long <<key>>
+  quantity : int
+}
+
+
+
+
+/'
+//////////////////////////////////////////
+=================ENTITIES=================
+//////////////////////////////////////////
+
+===============================================
+===============================================
+
+///////////////////////////////////////////////
+=================RELATIONSHIPS=================
+///////////////////////////////////////////////
+'/
+
+relationship "has" as CUSTOMER_CART <<grey>> {
+}
+
+customer -1- CUSTOMER_CART
+cart -1- CUSTOMER_CART
+
+relationship "contains" as PC_PRODUCT <<grey>> {
+}
+
+product -N- PC_PRODUCT
+pc -N- PC_PRODUCT
+
+relationship "contains" as PC_CART <<grey>> {
+}
+
+cart -N- PC_CART
+pc -N- PC_CART
+
+relationship "contains" as PRODUCT_INVENTORY <<grey>> {
+}
+
+product -N- PRODUCT_INVENTORY
+inventory -N- PRODUCT_INVENTORY
+
+relationship "has" as INVENTORY_WAREHOUSE <<grey>> {
+}
+
+warehouse -1- INVENTORY_WAREHOUSE
+inventory -1- INVENTORY_WAREHOUSE
+
+@endchen
