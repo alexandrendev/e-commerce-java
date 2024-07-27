@@ -1,0 +1,48 @@
+@startuml
+
+package domain{
+	class Customer {
+		- id : Long
+		- name : String
+		- username :  String
+		- password : String
+	}
+
+	class Cart {
+		- id : Long
+		- products : List<Product>
+		
+	} 
+	class Product {
+		- id : Long
+		- name : String
+		- category :  Category
+		- description : String
+		- imageURL : String
+		- price :  BigDecimal
+	}
+	enum Category {
+		HARDWARE
+		PERIPHERAL
+		OTHER
+	}
+	
+
+}
+package DTO {
+	class CustomerDTO {
+		- name : String
+		- username : String
+		- password : String
+		- email : String	
+	}
+	class ProductDTO {
+		- name : String
+		- imageURL : String
+		- category : Category
+		- price : BigDecimal
+	}
+}
+
+@enduml
+
