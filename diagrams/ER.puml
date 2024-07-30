@@ -80,7 +80,7 @@ entity "products_cart" as pc {
 
 entity warehouse {
   id : Long <<key>>
-  location : varchar
+  city_id : Long
 }
 
 entity inventory {
@@ -169,4 +169,9 @@ relationship "belongs to" as IMAGE_PRODUCT <<grey>> {
 }
 product -1- IMAGE_PRODUCT
 image -N- IMAGE_PRODUCT
+
+relationship "located at" as WAREHOUSE_CITY <<grey>>{
+}
+city -1- WAREHOUSE_CITY
+warehouse -N- WAREHOUSE_CITY
 @endchen
