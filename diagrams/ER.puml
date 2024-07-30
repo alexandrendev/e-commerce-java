@@ -27,6 +27,27 @@ entity customer {
 	credentials_id : long <<FK>>
 }
 
+entity address {
+    id: Long <<key>>
+    street : varchar
+    number : varchar
+    complement : varchar
+    customer_id : Long <<FK>>
+    city_id : Long
+}
+
+entity city {
+    id : Long <<key>>
+    name : varchar
+    state_id : Long <<key>>
+}
+
+entity state {
+    id : Long <<key>>
+    name : varchar
+    acronym : varchar <<key>>
+}
+
 entity email {
 	id : Long <<key>>
 	email : varchar
@@ -121,5 +142,20 @@ relationship "has" as INVENTORY_WAREHOUSE <<grey>> {
 
 warehouse -1- INVENTORY_WAREHOUSE
 inventory -1- INVENTORY_WAREHOUSE
+
+relationship "belongs to" as CITY_STATE <<grey>> {
+}
+city -N- CITY_STATE
+state -1- CITY_STATE
+
+relationship "contains" as ADDRESS_CITY <<grey>>{
+}
+address -N- ADDRESS_CITY
+city -1- ADDRESS_CITY
+
+relationship "has" as CUSTOMER_ADDRESS <<grey>> {
+}
+customer -N- CUSTOMER_ADDRESS
+address -1- CUSTOMER_ADDRESS
 
 @endchen
