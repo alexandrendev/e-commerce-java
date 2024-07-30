@@ -19,6 +19,13 @@ entity product {
 	id : Long <<key>>
 	name : varchar
 	description : varchar
+	price : Decimal
+}
+
+entity image{
+    id : Long <<key>>
+    url : varchar
+    product_id : Long <<fk>>
 }
 
 entity customer {
@@ -158,4 +165,8 @@ relationship "has" as CUSTOMER_ADDRESS <<grey>> {
 customer -N- CUSTOMER_ADDRESS
 address -1- CUSTOMER_ADDRESS
 
+relationship "belongs to" as IMAGE_PRODUCT <<grey>> {
+}
+product -1- IMAGE_PRODUCT
+image -N- IMAGE_PRODUCT
 @endchen
