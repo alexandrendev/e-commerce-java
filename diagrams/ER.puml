@@ -20,6 +20,8 @@ entity product {
 	name : varchar
 	description : varchar
 	price : Decimal
+	created_at : Date
+	updated_at : Date
 }
 
 entity image{
@@ -32,6 +34,8 @@ entity customer {
 	id : Long <<key>>
 	name : varchar
 	credentials_id : long <<FK>>
+	created_at : Date
+    updated_at : Date
 }
 
 entity address {
@@ -41,6 +45,8 @@ entity address {
     complement : varchar
     customer_id : Long <<FK>>
     city_id : Long
+    created_at : Date
+    updated_at : Date
 }
 
 entity city {
@@ -59,12 +65,16 @@ entity email {
 	id : Long <<key>>
 	email : varchar
 	customer_id : Long <<FK>>
+	created_at : Date
+    updated_at : Date
 }
 
 entity credentials {
 	id : Long <<key>>
 	username : varchar
 	password : varchar
+	created_at : Date
+    updated_at : Date
 }
 
 entity cart {
@@ -79,15 +89,17 @@ entity "products_cart" as pc {
 }
 
 entity warehouse {
-  id : Long <<key>>
-  city_id : Long
+    id : Long <<key>>
+    city_id : Long
 }
 
 entity inventory {
-  id : Long <<key>>
-  product_id : Long <<key>>
-  warehouse_id : Long <<key>>
-  quantity : int
+    id : Long <<key>>
+    product_id : Long <<key>>
+    warehouse_id : Long <<key>>
+    quantity : int
+    created_at : Date
+    updated_at : Date
 }
 
 
