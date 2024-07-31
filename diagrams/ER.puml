@@ -37,6 +37,13 @@ entity customer {
 	created_at : Date
     updated_at : Date
 }
+entity admin {
+    id: Long <<key>>
+    name : varchar
+    credentials_id : Long <<FK>>
+    created_at : Date
+    updated_at : Date
+}
 
 entity address {
     id: Long <<key>>
@@ -186,4 +193,11 @@ relationship "located at" as WAREHOUSE_CITY <<grey>>{
 }
 city -1- WAREHOUSE_CITY
 warehouse -N- WAREHOUSE_CITY
+
+relationship "has" as ADMIN_CREDENTIALS <<grey>> {
+}
+
+admin -1- ADMIN_CREDENTIALS
+credentials -1- ADMIN_CREDENTIALS
+
 @endchen
