@@ -1,6 +1,6 @@
 package com.alexandre.eCommerce.services;
 
-import com.alexandre.eCommerce.Domain.DTO.ProductDTO;
+import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

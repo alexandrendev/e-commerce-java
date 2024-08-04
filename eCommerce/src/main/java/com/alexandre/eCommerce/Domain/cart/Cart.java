@@ -1,11 +1,11 @@
-package com.alexandre.eCommerce.Domain;
+package com.alexandre.eCommerce.Domain.cart;
 
+import com.alexandre.eCommerce.Domain.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

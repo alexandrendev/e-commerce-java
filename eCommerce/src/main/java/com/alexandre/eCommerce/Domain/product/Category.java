@@ -1,4 +1,4 @@
-package com.alexandre.eCommerce.Domain;
+package com.alexandre.eCommerce.Domain.product;
 
 public enum Category {
     HARDWARE(1, "Hardware"),

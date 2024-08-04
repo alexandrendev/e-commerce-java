@@ -1,6 +1,6 @@
 package com.alexandre.eCommerce.repositories;
 
-import com.alexandre.eCommerce.Domain.Product;
+import com.alexandre.eCommerce.Domain.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

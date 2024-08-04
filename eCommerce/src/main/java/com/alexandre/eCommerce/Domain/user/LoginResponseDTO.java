@@ -1,4 +1,4 @@
-package com.alexandre.eCommerce.Domain.DTO;
+package com.alexandre.eCommerce.Domain.user;
 
 public record LoginResponseDTO(String token) {
 }

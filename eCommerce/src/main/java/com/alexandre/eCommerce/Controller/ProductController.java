@@ -1,6 +1,6 @@
 package com.alexandre.eCommerce.Controller;
 
-import com.alexandre.eCommerce.Domain.DTO.ProductDTO;
+import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

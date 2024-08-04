@@ -1,7 +1,4 @@
-package com.alexandre.eCommerce.Domain.DTO;
-
-import com.alexandre.eCommerce.Domain.Category;
-import com.alexandre.eCommerce.Domain.Product;
+package com.alexandre.eCommerce.Domain.product;
 
 import java.math.BigDecimal;
 

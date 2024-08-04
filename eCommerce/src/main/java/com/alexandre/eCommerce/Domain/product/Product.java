@@ -1,6 +1,5 @@
-package com.alexandre.eCommerce.Domain;
+package com.alexandre.eCommerce.Domain.product;
 
-import com.alexandre.eCommerce.Domain.DTO.ProductDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
