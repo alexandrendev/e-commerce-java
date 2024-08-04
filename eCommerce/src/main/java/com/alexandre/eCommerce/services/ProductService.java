@@ -3,6 +3,7 @@ package com.alexandre.eCommerce.services;
 import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,14 @@ public class ProductService {
                 .toList();
     }
 
-    public ProductDTO createProduct(ProductDTO productDTO) {
-        Product product = productDTO.toProduct();
-        return productRepository.save(product).toDTO();
+    @Transactional
+    public ProductDTO createProduct(ProductDTO productDTO, String imageURL) {
+        Product savedProduct = productRepository.save(productDTO.toProduct());
+
+        if (productRepository.saveImage(imageURL, savedProduct.getId()) == 1) {
+            return savedProduct.toDTO();
+        }
+        return null;
     }
     public boolean checkInventory(Long productId, int quantity) {
         return true;

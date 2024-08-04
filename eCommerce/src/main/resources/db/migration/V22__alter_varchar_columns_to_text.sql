@@ -1,0 +1,11 @@
+ALTER TABLE image
+    ALTER COLUMN url TYPE TEXT;
+
+ALTER TABLE product
+    ALTER COLUMN description TYPE TEXT;
+
+ALTER TABLE email
+    ALTER COLUMN email TYPE TEXT;
+
+ALTER TABLE users
+    ALTER COLUMN name TYPE TEXT;

@@ -14,10 +14,6 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-
-    List<Product> findAll();
-
     @Query(nativeQuery = true, value = """
         SELECT quantity FROM inventory WHERE product_id = :productId;
         """)
@@ -36,4 +32,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         INSERT INTO inventory (product_id, warehouse_id, quantity) VALUES (:productId, :warehouseId :quantity);
 """)
     int insertExistingProduct(@Param("warehouseId") Long wareHouseId,@Param("productId") Long productId,@Param("quantity") int quantity);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = """
+        INSERT INTO image (url, product_id) VALUES (:url, :productId);
+        """)
+    int saveImage(@Param("url") String url, @Param("productId") Long productId);
 }
