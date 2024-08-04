@@ -1,8 +1,10 @@
 package com.alexandre.eCommerce.Controller;
 
 import com.alexandre.eCommerce.Domain.DTO.AuthenticationDTO;
+import com.alexandre.eCommerce.Domain.DTO.LoginResponseDTO;
 import com.alexandre.eCommerce.Domain.DTO.RegisterDTO;
 import com.alexandre.eCommerce.Domain.user.User;
+import com.alexandre.eCommerce.infra.security.TokenService;
 import com.alexandre.eCommerce.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("auth")
 public class AuthenticationController {
 
+    private final TokenService tokenService;
     AuthenticationManager authenticationManager;
     UserRepository repository;
 
@@ -28,7 +31,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var authentication = authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
@@ -42,8 +47,9 @@ public class AuthenticationController {
     }
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository repository) {
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository repository, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.repository = repository;
+        this.tokenService = tokenService;
     }
 }
