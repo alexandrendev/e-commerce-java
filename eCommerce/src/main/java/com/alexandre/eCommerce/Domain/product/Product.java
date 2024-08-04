@@ -25,10 +25,11 @@ public class Product {
     private String description;
     @Column(name = "price")
     private BigDecimal price;
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category;
 
-    ProductDTO toDTO(){
+    public ProductDTO toDTO(){
         return new ProductDTO(this.getName(), this.getDescription(), this.getPrice(), this.getCategory());
     }
 }

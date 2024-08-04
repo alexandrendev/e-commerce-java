@@ -4,9 +4,7 @@ import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,12 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(products);
+    }
+
+    @PostMapping()
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
+        ProductDTO dto = service.createProduct(product);
+        if (dto == null) return ResponseEntity.badRequest().build();
+        return ResponseEntity.created(null).body(dto);
     }
 }
