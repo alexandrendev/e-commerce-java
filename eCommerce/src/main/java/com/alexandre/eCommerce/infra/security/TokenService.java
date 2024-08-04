@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.tokens.AliasToken;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("e-commerce-api")
                     .withSubject(user.getUsername())
+                    .withClaim("userId", user.getId())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
             return token;
@@ -42,6 +44,18 @@ public class TokenService {
                     .getSubject();
         }catch(JWTVerificationException exception){
             return "";
+        }
+    }
+    public Long getIdFromToken(String token){
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        try {
+            return JWT.require(algorithm)
+                    .withIssuer("e-commerce-api")
+                    .build()
+                    .verify(token)
+                    .getClaim("userId").asLong();
+        }catch (JWTVerificationException exception){
+            return null;
         }
     }
 
