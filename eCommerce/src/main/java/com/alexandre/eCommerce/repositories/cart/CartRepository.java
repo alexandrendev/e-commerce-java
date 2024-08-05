@@ -1,4 +1,4 @@
-package com.alexandre.eCommerce.repositories;
+package com.alexandre.eCommerce.repositories.cart;
 
 import com.alexandre.eCommerce.Domain.cart.Cart;
 import jakarta.transaction.Transactional;

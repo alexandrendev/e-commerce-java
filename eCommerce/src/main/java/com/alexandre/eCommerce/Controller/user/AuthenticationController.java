@@ -1,11 +1,11 @@
-package com.alexandre.eCommerce.Controller;
+package com.alexandre.eCommerce.Controller.user;
 
 import com.alexandre.eCommerce.Domain.user.AuthenticationDTO;
 import com.alexandre.eCommerce.Domain.user.LoginResponseDTO;
 import com.alexandre.eCommerce.Domain.user.RegisterDTO;
 import com.alexandre.eCommerce.Domain.user.User;
 import com.alexandre.eCommerce.infra.security.TokenService;
-import com.alexandre.eCommerce.repositories.UserRepository;
+import com.alexandre.eCommerce.repositories.user.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

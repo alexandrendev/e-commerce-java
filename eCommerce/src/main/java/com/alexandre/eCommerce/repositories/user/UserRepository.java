@@ -1,7 +1,6 @@
-package com.alexandre.eCommerce.repositories;
+package com.alexandre.eCommerce.repositories.user;
 
 import com.alexandre.eCommerce.Domain.user.User;
-import jakarta.persistence.Table;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

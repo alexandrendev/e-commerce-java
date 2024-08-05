@@ -1,14 +1,13 @@
-package com.alexandre.eCommerce.services;
+package com.alexandre.eCommerce.services.product;
 
 import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.Domain.product.ProductDTO;
-import com.alexandre.eCommerce.repositories.ProductRepository;
+import com.alexandre.eCommerce.repositories.product.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class ProductService {

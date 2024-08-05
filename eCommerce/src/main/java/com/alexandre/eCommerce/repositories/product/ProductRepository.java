@@ -1,4 +1,4 @@
-package com.alexandre.eCommerce.repositories;
+package com.alexandre.eCommerce.repositories.product;
 
 import com.alexandre.eCommerce.Domain.product.Product;
 import jakarta.transaction.Transactional;
@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 
 @Repository

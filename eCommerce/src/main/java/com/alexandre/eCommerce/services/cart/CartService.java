@@ -1,6 +1,6 @@
-package com.alexandre.eCommerce.services;
+package com.alexandre.eCommerce.services.cart;
 
-import com.alexandre.eCommerce.repositories.CartRepository;
+import com.alexandre.eCommerce.repositories.cart.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

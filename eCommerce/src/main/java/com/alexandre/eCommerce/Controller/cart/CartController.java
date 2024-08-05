@@ -1,7 +1,7 @@
-package com.alexandre.eCommerce.Controller;
+package com.alexandre.eCommerce.Controller.cart;
 
 import com.alexandre.eCommerce.infra.security.TokenService;
-import com.alexandre.eCommerce.services.CartService;
+import com.alexandre.eCommerce.services.cart.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

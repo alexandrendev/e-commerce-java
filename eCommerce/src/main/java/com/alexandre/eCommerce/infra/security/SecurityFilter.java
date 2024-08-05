@@ -1,6 +1,6 @@
 package com.alexandre.eCommerce.infra.security;
 
-import com.alexandre.eCommerce.repositories.UserRepository;
+import com.alexandre.eCommerce.repositories.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

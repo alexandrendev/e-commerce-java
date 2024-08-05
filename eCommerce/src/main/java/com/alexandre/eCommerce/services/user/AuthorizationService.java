@@ -1,6 +1,6 @@
-package com.alexandre.eCommerce.services;
+package com.alexandre.eCommerce.services.user;
 
-import com.alexandre.eCommerce.repositories.UserRepository;
+import com.alexandre.eCommerce.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
