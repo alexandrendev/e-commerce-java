@@ -23,6 +23,16 @@ public class CartController {
         return ResponseEntity.badRequest().build();
     }
 
+    @DeleteMapping()
+    public ResponseEntity removeProductFromCart(@RequestHeader String tokenHeader, @RequestBody Long productId) {
+        String token = tokenHeader.substring(7);
+        Long userId = tokenService.getIdFromToken(token);
+
+        if(service.deleteFromCartByProductId(userId, productId)) return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
     @Autowired
     public CartController(CartService service, TokenService tokenService) {
         this.service = service;

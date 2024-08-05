@@ -13,6 +13,12 @@ public class CartService {
         return repository.addProductToCart(cartId, productId) == 1;
     }
 
+
+    public boolean deleteFromCartByProductId(Long userId, Long productId){
+        Long cartId = repository.retrieveCartIdByUserId(userId);
+        return repository.deleteProductFromCartByProductId(productId, cartId) == 1;
+    }
+
     @Autowired
     public CartService(CartRepository cartRepository) {
         this.repository = cartRepository;
