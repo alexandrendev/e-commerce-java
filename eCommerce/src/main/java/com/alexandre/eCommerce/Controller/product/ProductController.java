@@ -28,8 +28,8 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product,@RequestHeader("X-Image-URL") String imageURL) {
-        ProductDTO dto = service.createProduct(product, imageURL);
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
+        ProductDTO dto = service.createProduct(product);
         if (dto == null) return ResponseEntity.badRequest().build();
         return ResponseEntity.created(null).body(dto);
     }

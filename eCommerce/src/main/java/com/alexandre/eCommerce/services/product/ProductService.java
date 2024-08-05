@@ -24,19 +24,15 @@ public class ProductService {
                         product.getName(),
                         product.getDescription(),
                         product.getPrice(),
-                        product.getCategory()
+                        product.getCategory(),
+                        product.getImages()
                 ))
                 .toList();
     }
 
     @Transactional
-    public ProductDTO createProduct(ProductDTO productDTO, String imageURL) {
-        Product savedProduct = productRepository.save(productDTO.toProduct());
-
-        if (productRepository.saveImage(imageURL, savedProduct.getId()) == 1) {
-            return savedProduct.toDTO();
-        }
-        return null;
+    public ProductDTO createProduct(ProductDTO productDTO) {
+        return productRepository.save(productDTO.toProduct()).toDTO();
     }
     public boolean checkInventory(Long productId, int quantity) {
         return true;
