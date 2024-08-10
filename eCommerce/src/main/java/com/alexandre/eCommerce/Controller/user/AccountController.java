@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("account")
-public class UserController {
+public class AccountController {
     UserService service;
     TokenService tokenService;
 
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @Autowired
-    public UserController(UserService service, TokenService tokenService) {
+    public AccountController(UserService service, TokenService tokenService) {
         this.service = service;
         this.tokenService = tokenService;
     }
