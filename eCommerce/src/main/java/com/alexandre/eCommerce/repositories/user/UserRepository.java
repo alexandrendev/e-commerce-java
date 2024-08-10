@@ -20,4 +20,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
         """)
     int createCartByUserId(@Param("userId") Long id);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = """
+            INSERT INTO address (street, number, complement, city_id, customer_id) VALUES(:street,
+                                                                                          :number,
+                                                                                          :complement,
+                                                                                          (SELECT id FROM city WHERE name = :cityName),
+                                                                                          :userId)
+            """)
+    int addUserAddress(@Param("street") String street,
+                       @Param("number") String number,
+                       @Param("complement") String complement,
+                       @Param("cityName") String cityName,
+                       @Param("userId") Long userId);
+
 }
