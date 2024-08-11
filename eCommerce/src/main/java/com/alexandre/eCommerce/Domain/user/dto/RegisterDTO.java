@@ -1,5 +1,6 @@
-package com.alexandre.eCommerce.Domain.user;
+package com.alexandre.eCommerce.Domain.user.dto;
 
+import com.alexandre.eCommerce.Domain.user.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

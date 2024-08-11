@@ -32,6 +32,10 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserAddress> addresses;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(role.getRole().equals("admin")) {

@@ -1,8 +1,9 @@
 package com.alexandre.eCommerce.Controller.user;
 
-import com.alexandre.eCommerce.Domain.user.UserAddressDTO;
+import com.alexandre.eCommerce.Domain.user.dto.UserAddressDTO;
 
 import com.alexandre.eCommerce.infra.security.TokenService;
+import com.alexandre.eCommerce.services.TokenUtil;
 import com.alexandre.eCommerce.services.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,11 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController()
 @RequestMapping("account")
 public class AccountController {
     UserService service;
-    TokenService tokenService;
+    TokenUtil tokenUtil;
 
 
     @Operation(description = "Operation to add the user's address.", method = "POST")
@@ -27,19 +30,28 @@ public class AccountController {
     }
     )
     @PostMapping("/address")
-    public ResponseEntity addAddress(@RequestHeader String tokenHeader, @RequestBody UserAddressDTO address) {
-        String token = tokenHeader.substring(7);
-        Long userId = tokenService.getIdFromToken(token);
-        if(userId == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<UserAddressDTO> addAddress(@RequestHeader String tokenHeader, @RequestBody UserAddressDTO address) {
+        Long userId = tokenUtil.extractIdFromToken(tokenHeader);
+        if(userId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        return service.addAddress(address, userId)
-            ? ResponseEntity.created(null).build()
-            : ResponseEntity.badRequest().build();
+        UserAddressDTO dto = service.addAddress(address, userId);
+        if(dto != null) return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity<List<UserAddressDTO>> getUserAddresses (@RequestHeader String tokenHeader){
+        Long userId = tokenUtil.extractIdFromToken(tokenHeader);
+        if(userId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        List<UserAddressDTO> addresses = service.getUserAddresses(userId);
+        if(addresses.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
     @Autowired
-    public AccountController(UserService service, TokenService tokenService) {
+    public AccountController(UserService service, TokenUtil tokenUtil) {
         this.service = service;
-        this.tokenService = tokenService;
+        this.tokenUtil = tokenUtil;
     }
 }

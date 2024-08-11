@@ -1,8 +1,8 @@
 package com.alexandre.eCommerce.Controller.user;
 
-import com.alexandre.eCommerce.Domain.user.AuthenticationDTO;
-import com.alexandre.eCommerce.Domain.user.LoginResponseDTO;
-import com.alexandre.eCommerce.Domain.user.RegisterDTO;
+import com.alexandre.eCommerce.Domain.user.dto.AuthenticationDTO;
+import com.alexandre.eCommerce.Domain.user.dto.LoginResponseDTO;
+import com.alexandre.eCommerce.Domain.user.dto.RegisterDTO;
 import com.alexandre.eCommerce.Domain.user.User;
 import com.alexandre.eCommerce.infra.security.TokenService;
 import com.alexandre.eCommerce.repositories.user.UserRepository;
