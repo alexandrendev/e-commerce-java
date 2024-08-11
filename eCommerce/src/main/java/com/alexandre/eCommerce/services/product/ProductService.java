@@ -1,10 +1,13 @@
 package com.alexandre.eCommerce.services.product;
 
+import com.alexandre.eCommerce.Domain.product.Category;
 import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.repositories.product.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +37,19 @@ public class ProductService {
     public ProductDTO createProduct(ProductDTO productDTO) {
         return productRepository.save(productDTO.toProduct()).toDTO();
     }
-    public boolean checkInventory(Long productId, int quantity) {
-        return true;
+
+    public ProductDTO updateProduct(Product product) {
+        return productRepository.save(product).toDTO();
+    }
+
+    public Page<ProductDTO> getProductsbyCategory(String category, Pageable pageable) {
+        Page<Product> products = productRepository.findByCategory(Category.valueOf(category), pageable);
+        return products.map(product -> new ProductDTO(
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getCategory(),
+                product.getImages()
+        ));
     }
 }

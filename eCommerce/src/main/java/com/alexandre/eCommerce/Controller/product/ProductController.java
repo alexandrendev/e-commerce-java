@@ -1,15 +1,17 @@
 package com.alexandre.eCommerce.Controller.product;
 
+import com.alexandre.eCommerce.Domain.product.CategoryRequest;
+import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.Domain.product.ProductDTO;
 import com.alexandre.eCommerce.services.product.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -17,10 +19,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService service;
 
-    @Autowired
-    public ProductController(ProductService service) {
-        this.service = service;
-    }
 
     @Operation(description = "Operation to list all products.", method = "GET")
     @ApiResponses({
@@ -49,5 +47,34 @@ public class ProductController {
         ProductDTO dto = service.createProduct(product);
         if (dto == null) return ResponseEntity.badRequest().build();
         return ResponseEntity.created(null).body(dto);
+    }
+
+    @Operation(description = "Operation to update an existing product.", method = "PATCH")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Product updated"),
+            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
+            @ApiResponse(responseCode = "401", description = "The provided credentials are not valid or the user is not authorized to perform this action.")
+    }
+    )
+    @PatchMapping()
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) {
+        ProductDTO dto = service.updateProduct(product);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping("category/")
+    public ResponseEntity<Page<ProductDTO>> getProductsByCategory(Pageable pageable, @RequestBody CategoryRequest category) {
+        Page<ProductDTO> products = service.getProductsbyCategory(category.getCategory(), pageable);
+        if (products.isEmpty()) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok().body(products);
+    }
+
+
+
+
+    @Autowired
+    public ProductController(ProductService service) {
+        this.service = service;
     }
 }

@@ -3,6 +3,7 @@ package com.alexandre.eCommerce.services.user;
 import com.alexandre.eCommerce.Domain.user.User;
 import com.alexandre.eCommerce.Domain.user.UserAddress;
 import com.alexandre.eCommerce.Domain.user.dto.UserAddressDTO;
+import com.alexandre.eCommerce.repositories.user.AddressRepository;
 import com.alexandre.eCommerce.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
