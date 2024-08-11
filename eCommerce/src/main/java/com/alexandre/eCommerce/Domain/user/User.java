@@ -1,6 +1,7 @@
 package com.alexandre.eCommerce.Domain.user;
 
 
+import com.alexandre.eCommerce.Domain.order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<UserAddress> addresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Email> emails;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
 
     @Override
