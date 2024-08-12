@@ -17,6 +17,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    @Query(nativeQuery = true, value = """
 //        SELECT quantity FROM inventory WHERE product_id = :productId;
 //        """)
+//
+//        SELECT w.name, i.product_id, i.quantity
+//FROM Inventory i
+//JOIN Warehouses w ON i.warehouse_id = w.warehouse_id
+//WHERE i.product_id = :product_id;
+//
 //    int checkProductInventory(@Param("productId")Long productId);
 //
 //    @Modifying

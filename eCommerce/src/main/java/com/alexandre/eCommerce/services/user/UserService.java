@@ -43,6 +43,11 @@ public class UserService {
         return dtos;
     }
 
+    public User findUserById(Long userId) {
+        Optional<User> user = repository.findById(userId);
+        return user.orElse(null);
+    }
+
     @Autowired
     public UserService(UserRepository repository, AddressRepository addressRepository) {
         this.repository = repository;

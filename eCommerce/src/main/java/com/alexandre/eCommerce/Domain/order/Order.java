@@ -5,11 +5,13 @@ import com.alexandre.eCommerce.Domain.user.UserAddress;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
+@Data
 @Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +20,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Column(name = "total_amount")
     private BigDecimal totalAmount;

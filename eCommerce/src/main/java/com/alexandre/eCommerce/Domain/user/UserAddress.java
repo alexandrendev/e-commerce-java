@@ -1,6 +1,7 @@
 package com.alexandre.eCommerce.Domain.user;
 
 import com.alexandre.eCommerce.Domain.user.dto.UserAddressDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class UserAddress {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private User user;
 
 

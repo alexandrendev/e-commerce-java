@@ -1,11 +1,14 @@
 package com.alexandre.eCommerce.repositories.cart;
 
 import com.alexandre.eCommerce.Domain.cart.Cart;
+import com.alexandre.eCommerce.Domain.product.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
     @Modifying
@@ -16,7 +19,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     @Query(nativeQuery = true, value = """
         SELECT id FROM cart WHERE customer_id = :userId;""")
-    Long retrieveCartIdByUserId(@Param("userId") Long userId);
+    Long findCartIdByUserId(@Param("userId") Long userId);
 
     @Modifying
     @Transactional

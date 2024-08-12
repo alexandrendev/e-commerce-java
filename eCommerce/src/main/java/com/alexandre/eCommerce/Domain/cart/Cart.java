@@ -1,6 +1,7 @@
 package com.alexandre.eCommerce.Domain.cart;
 
 import com.alexandre.eCommerce.Domain.product.Product;
+import com.alexandre.eCommerce.Domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +18,10 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "product_cart")
+@Table(name = "cart")
 public class Cart {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany
@@ -29,6 +31,11 @@ public class Cart {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private User user;
+
 
     @Autowired
     public Cart(List<Product> products) {

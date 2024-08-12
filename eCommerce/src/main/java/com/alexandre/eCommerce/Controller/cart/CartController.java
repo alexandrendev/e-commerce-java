@@ -1,5 +1,7 @@
 package com.alexandre.eCommerce.Controller.cart;
 
+import com.alexandre.eCommerce.Domain.cart.Cart;
+import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.infra.security.TokenService;
 import com.alexandre.eCommerce.services.cart.CartService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("cart")
@@ -48,6 +52,16 @@ public class CartController {
         if(service.deleteFromCartByProductId(userId, productId)) return ResponseEntity.ok().build();
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getCartProducts(@RequestHeader String tokenHeader){
+        Long userId = tokenService.getIdFromToken(tokenHeader.substring(7));
+        Cart cart = service.findCartByUserId(userId);
+
+        List<Product> products = service.getProducts(cart.getId());
+
+        return ResponseEntity.ok().body(products);
     }
 
     @Autowired

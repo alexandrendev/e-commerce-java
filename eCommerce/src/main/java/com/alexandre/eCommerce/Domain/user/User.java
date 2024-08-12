@@ -1,7 +1,9 @@
 package com.alexandre.eCommerce.Domain.user;
 
 
+import com.alexandre.eCommerce.Domain.cart.Cart;
 import com.alexandre.eCommerce.Domain.order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,18 +31,27 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
     @Column(name = "role", nullable = false)
+    @JsonIgnore
     private UserRole role;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserAddress> addresses;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Email> emails;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Order> orders;
+
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private Cart cart;
 
 
     @Override
