@@ -54,6 +54,14 @@ public class CartController {
         return ResponseEntity.badRequest().build();
     }
 
+
+    @Operation(description = "Operation to list all products in cart.", method = "GET")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get products successfully."),
+            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
+            @ApiResponse(responseCode = "401", description = "Not authenticated or credentials are invalid.")
+    }
+    )
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getCartProducts(@RequestHeader String tokenHeader){
         Long userId = tokenService.getIdFromToken(tokenHeader.substring(7));

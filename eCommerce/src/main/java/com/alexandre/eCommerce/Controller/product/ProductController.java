@@ -49,14 +49,14 @@ public class ProductController {
         return ResponseEntity.created(null).body(dto);
     }
 
-    @Operation(description = "Operation to update an existing product.", method = "PATCH")
+    @Operation(description = "Operation to update an existing product.", method = "PUT")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Product updated"),
             @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
             @ApiResponse(responseCode = "401", description = "The provided credentials are not valid or the user is not authorized to perform this action.")
     }
     )
-    @PatchMapping()
+    @PutMapping()
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) {
         ProductDTO dto = service.updateProduct(product);
         return ResponseEntity.ok().body(dto);

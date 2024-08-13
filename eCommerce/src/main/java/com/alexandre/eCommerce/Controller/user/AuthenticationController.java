@@ -45,7 +45,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @Operation(description = "Operation to remove a product from cart.", method = "POST")
+    @Operation(description = "Operation to register a new user.", method = "POST")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Account registered."),
             @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
