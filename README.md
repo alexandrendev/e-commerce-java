@@ -14,7 +14,7 @@ An API that deals with eCommerce operations. It is built with Java and Spring Fr
 - Create a product: `POST/products` 
 - Retrieve all products: `GET/products` 
 - Get products by category (paginated): `GET/products/category` 
-- Update a product `PATCH/products` 
+- Update a product `PUT/products` 
 
 ### Cart
 
