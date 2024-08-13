@@ -12,7 +12,7 @@ An API that deals with eCommerce operations. It is built with Java and Spring Fr
 ### Products
 
 - Create a product: `POST/products` 
-- Retrieve all products: `GET/products` 
+- Retrieve all products paginated: `GET/products` 
 - Get products by category (paginated): `GET/products/category` 
 - Update a product `PUT/products` 
 
