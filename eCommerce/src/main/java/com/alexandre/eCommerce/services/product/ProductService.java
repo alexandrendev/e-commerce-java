@@ -21,16 +21,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDTO> findAll() {
-        return productRepository.findAll().stream()
-                .map(product -> new ProductDTO(
-                        product.getName(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getCategory(),
-                        product.getImages()
-                ))
-                .toList();
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @Transactional

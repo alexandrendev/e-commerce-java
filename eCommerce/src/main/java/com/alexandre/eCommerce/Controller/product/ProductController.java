@@ -20,17 +20,18 @@ public class ProductController {
     private final ProductService service;
 
 
-    @Operation(description = "Operation to list all products.", method = "GET")
+    @Operation(description = "Operation to list all products paginated.", method = "GET")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listed Products with success."),
+            @ApiResponse(responseCode = "204", description = "No content."),
             @ApiResponse(responseCode = "400", description = "Bad request"),
     }
     )
     @GetMapping()
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        List<ProductDTO> products = service.findAll();
-        if (products.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Page<Product>> getAllProducts(Pageable pageable) {
+        Page<Product> products = service.findAll(pageable);
+        if (!products.hasContent()) {
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok().body(products);
     }
