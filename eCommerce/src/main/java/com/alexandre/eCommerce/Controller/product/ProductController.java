@@ -63,10 +63,18 @@ public class ProductController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @Operation(description = "Operation to get paginated products by category.", method = "GET")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "No content"),
+            @ApiResponse(responseCode = "200", description = "Ok"),
+            @ApiResponse(responseCode = "400", description = "Bad request")
+    }
+    )
+    @PutMapping()
     @GetMapping("category/")
     public ResponseEntity<Page<ProductDTO>> getProductsByCategory(Pageable pageable, @RequestBody CategoryRequest category) {
         Page<ProductDTO> products = service.getProductsbyCategory(category.getCategory(), pageable);
-        if (products.isEmpty()) return ResponseEntity.notFound().build();
+        if (products.isEmpty()) return ResponseEntity.noContent().build();
 
         return ResponseEntity.ok().body(products);
     }
