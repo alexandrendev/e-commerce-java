@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,6 +25,7 @@ public class Order {
     private OrderStatus status;
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_method")
     private PaymentMethod paymentMethod;
 
@@ -35,4 +37,8 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "delivery_address_id")
     private UserAddress address;
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
 }

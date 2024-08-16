@@ -2,9 +2,11 @@ package com.alexandre.eCommerce.Domain.order;
 
 import com.alexandre.eCommerce.Domain.product.Product;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_items")
+@Data
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -70,7 +70,8 @@ public class ProductController {
             @ApiResponse(responseCode = "400", description = "Bad request")
     }
     )
-    @PutMapping()
+
+
     @GetMapping("category/")
     public ResponseEntity<Page<ProductDTO>> getProductsByCategory(Pageable pageable, @RequestBody CategoryRequest category) {
         Page<ProductDTO> products = service.getProductsbyCategory(category.getCategory(), pageable);
