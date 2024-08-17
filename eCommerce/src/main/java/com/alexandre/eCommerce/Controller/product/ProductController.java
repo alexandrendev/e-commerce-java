@@ -36,33 +36,6 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
-    @Operation(description = "Operation to remove a product from cart.", method = "POST")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Product created"),
-            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
-            @ApiResponse(responseCode = "401", description = "The provided credentials are not valid or the user is not authorized to perform this action.")
-    }
-    )
-    @PostMapping()
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
-        ProductDTO dto = service.createProduct(product);
-        if (dto == null) return ResponseEntity.badRequest().build();
-        return ResponseEntity.created(null).body(dto);
-    }
-
-    @Operation(description = "Operation to update an existing product.", method = "PUT")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Product updated"),
-            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
-            @ApiResponse(responseCode = "401", description = "The provided credentials are not valid or the user is not authorized to perform this action.")
-    }
-    )
-    @PutMapping()
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) {
-        ProductDTO dto = service.updateProduct(product);
-        return ResponseEntity.ok().body(dto);
-    }
-
     @Operation(description = "Operation to get paginated products by category.", method = "GET")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "No content"),
