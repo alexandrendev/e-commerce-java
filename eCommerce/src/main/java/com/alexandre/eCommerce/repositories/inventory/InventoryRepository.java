@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
@@ -21,5 +23,5 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Query(nativeQuery = true, value = """ 
         SELECT SUM(quantity) AS total FROM inventory WHERE product_id = :productId
         """)
-    int findQuantityByProductId(@Param("productId") Long productId);
+    Optional<Integer> findQuantityByProductId(@Param("productId") Long productId);
 }

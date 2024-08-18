@@ -9,6 +9,8 @@ import com.alexandre.eCommerce.repositories.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class InventoryService {
 
@@ -36,8 +38,11 @@ public class InventoryService {
     }
 
     public boolean checkInventory(Long productId, Long quantity){
-        int qt = inventoryRepository.findQuantityByProductId(productId);
-        return qt >= quantity;
+        Optional<Integer> qtd = inventoryRepository.findQuantityByProductId(productId);
+        if(qtd.isPresent()) {
+            return qtd.get() >= quantity;
+        }
+        return false;
     }
 
     @Autowired

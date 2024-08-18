@@ -4,10 +4,13 @@ import com.alexandre.eCommerce.Domain.cart.Cart;
 import com.alexandre.eCommerce.Domain.product.Product;
 import com.alexandre.eCommerce.infra.security.TokenService;
 import com.alexandre.eCommerce.services.cart.CartService;
+import com.alexandre.eCommerce.services.inventory.InventoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +20,8 @@ import java.util.List;
 @RequestMapping("cart")
 public class CartController {
     private final TokenService tokenService;
-    CartService service;
+    private CartService service;
+    private InventoryService inventoryService;
 
 
     @Operation(description = "Operation to add a product to cart.", method = "POST")
@@ -31,7 +35,7 @@ public class CartController {
     public ResponseEntity addProductToCart(@RequestHeader String tokenHeader, @RequestBody Long productId) {
         String token = tokenHeader.substring(7);
         Long userId = tokenService.getIdFromToken(token);
-
+        if (!inventoryService.checkInventory(productId, 1L)) return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Out of stock.");
         if(service.addProductToCart(userId, productId)) return ResponseEntity.ok().build();
 
         return ResponseEntity.badRequest().build();
@@ -73,8 +77,9 @@ public class CartController {
     }
 
     @Autowired
-    public CartController(CartService service, TokenService tokenService) {
+    public CartController(CartService service, TokenService tokenService, InventoryService inventoryService) {
         this.service = service;
         this.tokenService = tokenService;
+        this.inventoryService = inventoryService;
     }
 }
