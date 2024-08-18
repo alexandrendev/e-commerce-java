@@ -9,8 +9,6 @@ import com.alexandre.eCommerce.repositories.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class InventoryService {
 
@@ -18,7 +16,7 @@ public class InventoryService {
     InventoryRepository inventoryRepository;
 
     public boolean save(ProductEntryRequest data) {
-        Product product = productRepository.findById(data.id()).orElseThrow(
+        Product product = productRepository.findById(data.productId()).orElseThrow(
                 ()-> new ProductNotFoundException("Product Not Found")
         );
 
@@ -35,6 +33,11 @@ public class InventoryService {
     public boolean decrementInventory(Long productId, int quantity){
         int rowsAffected = inventoryRepository.decrementInventoryQuantity(productId, quantity);
         return rowsAffected > 0;
+    }
+
+    public boolean checkInventory(Long productId, Long quantity){
+        int qt = inventoryRepository.findQuantityByProductId(productId);
+        return qt >= quantity;
     }
 
     @Autowired

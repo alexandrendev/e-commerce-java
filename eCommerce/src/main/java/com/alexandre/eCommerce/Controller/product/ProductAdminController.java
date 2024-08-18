@@ -8,7 +8,6 @@ import com.alexandre.eCommerce.services.product.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,15 @@ public class ProductAdminController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PostMapping()
+
+    @Operation(description = "Operation to register a product entry in the inventory.", method = "POST")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Entry registered"),
+            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
+            @ApiResponse(responseCode = "401", description = "The provided credentials are not valid or the user is not authorized to perform this action.")
+    }
+    )
+    @PostMapping("/entry")
     public ResponseEntity registerProductEntry(@RequestBody ProductEntryRequest data) {
         boolean result = inventoryService.save(data);
         return result ? ResponseEntity.ok().build()
@@ -56,7 +63,8 @@ public class ProductAdminController {
 
 
     @Autowired
-    public ProductAdminController(ProductService service) {
+    public ProductAdminController(ProductService service, InventoryService inventoryService) {
         this.service = service;
+        this.inventoryService = inventoryService;
     }
 }
