@@ -39,13 +39,19 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    @Operation(description = "Operation to get all addresses linked to an account ", method = "GET")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Addresses retrieved successfully."),
+            @ApiResponse(responseCode = "400", description = "Operation cannot continue because the provided data is invalid."),
+            @ApiResponse(responseCode = "204", description = "This account have no addresses linked itself")
+    })
     @GetMapping("/address")
     public ResponseEntity<List<UserAddressDTO>> getUserAddresses (@RequestHeader String tokenHeader){
         Long userId = tokenUtil.extractIdFromToken(tokenHeader);
         if(userId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         List<UserAddressDTO> addresses = service.getUserAddresses(userId);
-        if(addresses.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(addresses.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
